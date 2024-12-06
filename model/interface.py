@@ -48,14 +48,14 @@ class Vingador:
     lista_vingadores = []
  
     @staticmethod
-    def adicionar_tornozeleira(idheroi, status, data_ativacao, data_desativacao):
+    def adicionar_tornozeleira(idheroi, status_convc, data_ativacao, data_desativacao):
         try:
             db = Database()
             db.connect()
  
             query = """INSERT INTO tornozeleira (idheroi, status, data_ativacao, data_desativacao)
                        VALUES (%s, %s, %s, %s)"""
-            values = (idheroi, status, data_ativacao, data_desativacao)
+            values = (idheroi, status_convc, data_ativacao, data_desativacao)
             db.execute_query(query, values)
  
             print(f"Tornozeleira registrada com sucesso para o herói com ID {idheroi}")
@@ -99,14 +99,14 @@ class Vingador:
             db.disconnect()
  
     @staticmethod
-    def adicionar_mandado(idheroi, motivo, data_emissao, status):
+    def adicionar_mandado(idheroi, motivo, data_emissao, status_convc):
         try:
             db = Database()
             db.connect()
  
-            query = """INSERT INTO mandado_prisao (idheroi, motivo, data_emissao, status)
+            query = """INSERT INTO mandado_prisao (idheroi, motivo, data_emissao, status_convc)
                        VALUES (%s, %s, %s, %s)"""
-            values = (idheroi, motivo, data_emissao, status)
+            values = (idheroi, motivo, data_emissao, status_convc)
             db.execute_query(query, values)
  
             print(f"Mandado de prisão registrado com sucesso para o herói com ID {idheroi}")
