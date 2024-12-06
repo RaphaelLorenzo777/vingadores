@@ -53,7 +53,7 @@ class Vingador:
             db = Database()
             db.connect()
  
-            query = """INSERT INTO tornozeleira (idheroi, status, data_ativacao, data_desativacao)
+            query = """INSERT INTO tornozeleira (idheroi, status_convc, data_ativacao, data_desativacao)
                        VALUES (%s, %s, %s, %s)"""
             values = (idheroi, status_convc, data_ativacao, data_desativacao)
             db.execute_query(query, values)
@@ -152,10 +152,10 @@ class Interface:
  
         if opcao == "1":
             idheroi = int(input("ID do herói: "))
-            status = input("Status (ativa/inativa): ")
+            status_convc = input("status_convc (ativa/inativa): ")
             data_ativacao = input("Data de ativação (YYYY-MM-DD): ")
             data_desativacao = input("Data de desativação (YYYY-MM-DD): ")
-            Vingador.adicionar_tornozeleira(idheroi, status, data_ativacao, data_desativacao)
+            Vingador.adicionar_tornozeleira(idheroi, status_convc, data_ativacao, data_desativacao)
         elif opcao == "2":
             idheroi = int(input("ID do herói: "))
             localizacao_atual = input("Localização atual: ")
@@ -166,14 +166,14 @@ class Interface:
             motivo = input("Motivo da convocação: ")
             data_convocacao = input("Data da convocação (YYYY-MM-DD): ")
             data_comparecimento = input("Data do comparecimento (YYYY-MM-DD): ")
-            status_convc = input("Status (pendente/comparecido/ausente): ")
+            status_convc = input("status_convc (pendente/comparecido/ausente): ")
             Vingador.adicionar_convocacao(motivo, data_convocacao, data_comparecimento, status_convc,idheroi)
         elif opcao == "4":
             idheroi = int(input("ID do herói: "))
             motivo = input("Motivo do mandado: ")
             data_emissao = input("Data de emissão (YYYY-MM-DD): ")
-            status = input("Status (ativo/cumprido/cancelado): ")
-            Vingador.adicionar_mandado(idheroi, motivo, data_emissao, status)
+            status_convc = input("status_convc (ativo/cumprido/cancelado): ")
+            Vingador.adicionar_mandado(idheroi, motivo, data_emissao, status_convc)
         elif opcao == "5":
             Vingador.listar_vingadores()
         elif opcao == "6":

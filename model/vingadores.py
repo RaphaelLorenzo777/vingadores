@@ -57,17 +57,18 @@ class Vingador:
                 db.connect()
 
                 data_convocacao = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Pega a data e hora atual
-                status = 'Convocado'
+                status_convc = 'Convocado'
                 
                 query = '''
-                    INSERT INTO convocacao (idheroi, data_convocacao, status) 
-                    VALUES (%s, %s, %s)
+                    INSERT INTO convocacao (motivo, data_convocacao, data_comparecimento, status_convc,idheroi) 
+                    VALUES (%s, %s, %s,%s,%s)
                 '''
-                db.execute_query(query, (self.id, data_convocacao, status))
-                self.convocado = True  # Atualiza o status de convocação para True
+                db.execute_query(query, (self.id, data_convocacao, status_convc))
+                self.convocado = True  # Atualiza o status_convc de convocação para True
                 print(f'{self.nome_heroi} foi convocado com sucesso!')
             except Exception as e:
                 print(f'Erro ao convocar: {e}')
+                
             finally:
                 db.disconnect()
         else:
@@ -80,11 +81,11 @@ class Vingador:
             db = Database()
             db.connect()
 
-            query = 'SELECT c.id, h.nome_heroi, c.data_convocacao, c.status FROM convocacao c JOIN heroi h ON c.idheroi = h.idheroi'
+            query = 'SELECT c.id, h.nome_heroi, c.data_convocacao, c.status_convc FROM convocacao c JOIN heroi h ON c.idheroi = h.idheroi'
             convocacoes = db.select(query)
             
             if convocacoes:
-                print(f'{"ID".ljust(5)} | {"Nome do Herói".ljust(20)} | {"Data da Convocação".ljust(20)} | {"Status".ljust(10)}')
+                print(f'{"ID".ljust(5)} | {"Nome do Herói".ljust(20)} | {"Data da Convocação".ljust(20)} | {"status_convc".ljust(10)}')
                 for convocacao in convocacoes:
                     print(f'{str(convocacao[0]).ljust(5)} | {convocacao[1].ljust(20)} | {convocacao[2].ljust(20)} | {convocacao[3].ljust(10)}')
             else:
